@@ -38,3 +38,30 @@ class Solution{
 };
 ```
 
+```c++
+/*
+回文子串
+题意：一字符串，判断其所有子串是否为回文子串，统计个数
+解法：暴搜+字符串
+IN：abc
+OUT：3
+*/
+class Solution{
+  public:
+    bool ishuiwen(string str){
+        string sign=str;
+        reverse(sign.begin(),sign.end());
+        return str==sign;
+    }
+    int countSubstrings(string s){
+        int ans=0;
+        for(int i=0;i<s.size();i++){
+            for(int k=1;k<=s.size()-i;k++){
+                if(ishuiwen(s.substr(i,k))) ans++;
+            }
+        }
+        return ans;
+    }
+};
+```
+
