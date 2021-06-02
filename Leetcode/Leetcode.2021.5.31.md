@@ -77,3 +77,43 @@ public:
 };
 ```
 
+```c++
+/*
+连续的子数组和
+题意：子数组大小 至少为 2 ，且子数组元素总和为 k 的倍数
+*/
+class Solution{//超时
+  public:
+    bool checkSubarraySum(vector<int>&nums,int k){
+        int n=nums.size();
+        vector<int>presum(n+1);
+        for(int i=0;i<n;i++) presum[i+1]=presum[i]+nums[i];
+        for(int i=0;i<n-1;i++){
+            for(int j=i+2;j<=n;j++){
+                if((presum[j]-presum[i])%k==0) return true;
+            }
+        }
+        return false;
+    }
+};
+class Solution{
+  public:
+    bool checkSubarraySum(vector<int>&nums,int k){
+        int n=nums.size();
+        if(n<2) return false;
+        unordered_map<int,int>mp;
+        mp[0]=-1;
+        int remainder=0;
+        for(int i=0;i<n;i++){
+            remainder=(remainder+nums[i])%k;
+            if(mp.count(remainder)){
+                int preindex=mp[remainder];
+                if(i-preindex>=2) return true;
+            }
+            else mp[remainder]=i;
+        }
+        return false;
+    }
+};
+```
+
